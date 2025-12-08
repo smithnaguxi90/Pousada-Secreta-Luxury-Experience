@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pousada Secreta | Luxury Experience</title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231E3A8A%22/><path d=%22M15 75 Q 35 60 55 75 T 85 75%22 stroke=%22%233B82F6%22 stroke-width=%228%22 fill=%22none%22 stroke-linecap=%22round%22/><circle cx=%2265%22 cy=%2235%22 r=%2218%22 fill=%22%23FDFBF7%22/></svg>"
+      type="image/svg+xml"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts (Playfair Display para títulos luxuosos) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+Pro:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Flatpickr (Calendário Bonito) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+
+    <style>
+      body {
+        font-family: "Source Sans Pro", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+      }
+
+      /* Navbar Transição */
+      .nav-scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+      }
+
+      .nav-transparent {
+        background: transparent;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      /* Hero Parallax */
+      .hero-bg {
+        background-image: url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e3a8a;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3b82f6;
+      }
+    </style>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              azul: {
+                500: "#3B82F6",
+                600: "#2563EB",
+                900: "#0F172A", // Slate 900 para um tom mais premium
+              },
+              dourado: "#C5A059", // Cor de acento luxuosa
+              areia: "#f8f8f8",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-areia text-slate-700 antialiased flex flex-col min-h-screen overflow-x-hidden"
+  >
+    <!-- NAVBAR INTELIGENTE -->
+    <header
+      id="navbar"
+      class="fixed w-full top-0 z-50 transition-all duration-300 nav-transparent"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <div
+            class="flex-shrink-0 flex items-center cursor-pointer group"
+            onclick="navigateTo('home')"
+          >
+            <div
+              class="w-10 h-10 bg-dourado rounded-full flex items-center justify-center mr-3 text-white group-hover:rotate-180 transition duration-700"
+            >
+              <i class="fas fa-compass"></i>
+            </div>
+            <div>
+              <span
+                class="block text-2xl font-bold text-white tracking-widest leading-none nav-text-color"
+                >SECRETA</span
+              >
+              <span
+                class="block text-xs text-dourado tracking-[0.3em] uppercase"
+                >Luxury Pousada</span
+              >
+            </div>
+          </div>
+
+          <!-- Menu Desktop -->
+          <nav class="hidden md:flex space-x-8 items-center">
+            <button
+              onclick="navigateTo('home')"
+              class="text-white hover:text-dourado text-sm font-semibold tracking-wider transition nav-text-color"
+            >
+              HOME
+            </button>
+            <button
+              onclick="navigateTo('home', 'sobre')"
+              class="text-white hover:text-dourado text-sm font-semibold tracking-wider transition nav-text-color"
+            >
+              SOBRE
+            </button>
+            <button
+              onclick="navigateTo('rooms')"
+              class="text-white hover:text-dourado text-sm font-semibold tracking-wider transition nav-text-color"
+            >
+              SUÍTES
+            </button>
+            <button
+              onclick="navigateTo('home', 'rota')"
+              class="text-white hover:text-dourado text-sm font-semibold tracking-wider transition nav-text-color"
+            >
+              LOCALIZAÇÃO
+            </button>
+            <button
+              onclick="openBookingModal()"
+              class="bg-dourado text-white px-6 py-2.5 rounded-sm text-sm font-bold tracking-widest hover:bg-white hover:text-dourado transition duration-300 shadow-lg border border-dourado"
+            >
+              RESERVAR
+            </button>
+          </nav>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden flex items-center">
+            <button
+              id="mobile-menu-btn"
+              class="text-white hover:text-dourado focus:outline-none nav-text-color"
+            >
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg"
+      >
+        <div class="px-5 pt-4 pb-6 space-y-3 flex flex-col">
+          <button
+            onclick="navigateTo('home'); toggleMobileMenu()"
+            class="text-left py-2 text-gray-800 font-medium hover:text-dourado border-b border-gray-100"
+          >
+            HOME
+          </button>
+          <button
+            onclick="navigateTo('rooms'); toggleMobileMenu()"
+            class="text-left py-2 text-gray-800 font-medium hover:text-dourado border-b border-gray-100"
+          >
+            SUÍTES
+          </button>
+          <button
+            onclick="navigateTo('home', 'rota'); toggleMobileMenu()"
+            class="text-left py-2 text-gray-800 font-medium hover:text-dourado border-b border-gray-100"
+          >
+            LOCALIZAÇÃO
+          </button>
+          <button
+            onclick="openBookingModal(); toggleMobileMenu()"
+            class="mt-4 w-full bg-azul-900 text-white py-3 font-bold"
+          >
+            RESERVAR AGORA
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div id="app-content" class="flex-grow">
+      <!-- ================= VIEW: HOME ================= -->
+      <main id="view-home" class="animate-fade-in">
+        <!-- Hero Section -->
+        <div class="relative h-screen flex items-center justify-center hero-bg">
+          <div class="absolute inset-0 bg-black/40"></div>
+
+          <div
+            class="container relative mx-auto px-4 text-center z-10"
+            data-aos="fade-up"
+            data-aos-duration="1200"
+          >
+            <span
+              class="text-dourado text-sm md:text-base tracking-[0.5em] uppercase mb-4 block font-bold"
+              >Bem-vindo ao Paraíso</span
+            >
+            <h1
+              class="text-white font-bold text-5xl md:text-7xl lg:text-8xl mb-6 drop-shadow-2xl italic"
+            >
+              Pousada Secreta
+            </h1>
+            <div class="w-24 h-1 bg-dourado mx-auto mb-8"></div>
+            <p
+              class="text-gray-200 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed"
+            >
+              Onde a elegância encontra a natureza. Uma experiência exclusiva em
+              Angra dos Reis.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+              <button
+                onclick="navigateTo('rooms')"
+                class="bg-white text-azul-900 px-8 py-3 rounded-sm font-bold tracking-wider hover:bg-dourado hover:text-white transition duration-500 min-w-[180px]"
+              >
+                EXPLORAR
+              </button>
+              <button
+                onclick="openBookingModal()"
+                class="border-2 border-white text-white px-8 py-3 rounded-sm font-bold tracking-wider hover:bg-white hover:text-azul-900 transition duration-500 min-w-[180px]"
+              >
+                RESERVAR
+              </button>
+            </div>
+          </div>
+
+          <!-- Scroll Down Indicator (ATIVADO) -->
+          <div
+            onclick="navigateTo('home', 'sobre')"
+            class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer z-20 group"
+          >
+            <i
+              class="fas fa-chevron-down text-white text-2xl opacity-70 group-hover:opacity-100 transition duration-300"
+            ></i>
+          </div>
+        </div>
+
+        <!-- Sobre Section -->
+        <section id="sobre" class="py-24 bg-white relative overflow-hidden">
+          <!-- Elemento decorativo -->
+          <div
+            class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-azul-50 rounded-full opacity-50 blur-3xl"
+          ></div>
+
+          <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+              <div class="md:w-1/2" data-aos="fade-right">
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                    class="w-full rounded-lg shadow-2xl relative z-10"
+                    alt="Interior"
+                  />
+                  <div
+                    class="absolute -bottom-6 -left-6 w-2/3 h-2/3 border-4 border-dourado z-0"
+                  ></div>
+                </div>
+              </div>
+              <div class="md:w-1/2" data-aos="fade-left">
+                <span
+                  class="text-dourado font-bold tracking-widest text-sm uppercase"
+                  >Nossa Essência</span
+                >
+                <h2
+                  class="text-4xl md:text-5xl font-bold text-azul-900 mt-2 mb-6"
+                >
+                  Exclusividade em <br /><span class="italic text-dourado"
+                    >cada detalhe</span
+                  >
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                  Projetada para proporcionar momentos inesquecíveis, a Pousada
+                  Secreta combina o charme da arquitetura colonial com o
+                  conforto contemporâneo. Cada suite oferece uma vista
+                  deslumbrante, garantindo a privacidade que você merece.
+                </p>
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-concierge-bell text-2xl text-dourado"></i>
+                    <span class="font-semibold text-azul-900"
+                      >Concierge 24h</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-wine-glass-alt text-2xl text-dourado"></i>
+                    <span class="font-semibold text-azul-900"
+                      >Adega Premium</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-spa text-2xl text-dourado"></i>
+                    <span class="font-semibold text-azul-900">Spa & Relax</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-wifi text-2xl text-dourado"></i>
+                    <span class="font-semibold text-azul-900"
+                      >High-Speed Wifi</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Preview Quartos -->
+        <section class="py-24 bg-gray-50">
+          <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+              <h2 class="text-4xl font-bold text-azul-900 mb-4">Acomodações</h2>
+              <div class="w-16 h-1 bg-dourado mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Card 1 -->
+              <div
+                class="group cursor-pointer"
+                onclick="navigateTo('rooms', 'solteiro')"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div class="relative overflow-hidden h-96">
+                  <div
+                    class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition z-10"
+                  ></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                  />
+                  <div class="absolute bottom-0 left-0 p-8 z-20 text-white">
+                    <h3 class="text-2xl font-bold mb-2 font-serif italic">
+                      Solteiro Deluxe
+                    </h3>
+                    <p
+                      class="text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-500"
+                    >
+                      Conforto intimista para viajantes exigentes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div
+                class="group cursor-pointer relative -mt-0 md:-mt-12 shadow-2xl z-20"
+                onclick="navigateTo('rooms', 'casal')"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div
+                  class="relative overflow-hidden h-96 border-4 border-white"
+                >
+                  <div
+                    class="absolute top-4 right-4 bg-dourado text-white text-xs font-bold px-3 py-1 z-30 tracking-widest"
+                  >
+                    BEST SELLER
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition z-10"
+                  ></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                  />
+                  <div class="absolute bottom-0 left-0 p-8 z-20 text-white">
+                    <h3 class="text-2xl font-bold mb-2 font-serif italic">
+                      Suíte Master
+                    </h3>
+                    <p
+                      class="text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-500"
+                    >
+                      Vista mar e hidromassagem privativa.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div
+                class="group cursor-pointer"
+                onclick="navigateTo('rooms', 'familia')"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <div class="relative overflow-hidden h-96">
+                  <div
+                    class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition z-10"
+                  ></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=800&q=80"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                  />
+                  <div class="absolute bottom-0 left-0 p-8 z-20 text-white">
+                    <h3 class="text-2xl font-bold mb-2 font-serif italic">
+                      Family Royal
+                    </h3>
+                    <p
+                      class="text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-500"
+                    >
+                      Espaço amplo para memórias em família.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-24 bg-azul-900 text-white relative">
+          <div class="container mx-auto px-4 text-center">
+            <i
+              class="fas fa-quote-right text-4xl text-dourado mb-8 opacity-50"
+            ></i>
+            <div class="max-w-3xl mx-auto">
+              <p
+                class="text-2xl md:text-3xl font-serif italic leading-relaxed mb-8"
+                data-aos="fade-in"
+              >
+                "Simplesmente a melhor experiência de hospedagem da minha vida.
+                A atenção aos detalhes é impressionante e a localização é um
+                sonho."
+              </p>
+              <div class="flex items-center justify-center gap-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  class="w-12 h-12 rounded-full border-2 border-dourado"
+                />
+                <div class="text-left">
+                  <h4 class="font-bold text-dourado">Sofia Albuquerque</h4>
+                  <span class="text-xs text-gray-400 uppercase tracking-widest"
+                    >Hóspede Verificada</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Rota Section -->
+        <section id="rota" class="py-0">
+          <div class="flex flex-col md:flex-row h-[500px]">
+            <div
+              class="md:w-1/2 bg-gray-100 flex items-center justify-center p-12"
+            >
+              <div class="max-w-md w-full" data-aos="fade-up">
+                <span
+                  class="text-dourado font-bold tracking-widest text-sm uppercase"
+                  >Localização</span
+                >
+                <h2 class="text-4xl font-bold text-azul-900 mt-2 mb-8">
+                  Como Chegar
+                </h2>
+                <div class="space-y-6">
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-dourado shrink-0"
+                    >
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-800">
+                        Endereço Exclusivo
+                      </h4>
+                      <p class="text-gray-600 text-sm">
+                        Brasília - Plano Piloto, DF
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-dourado shrink-0"
+                    >
+                      <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-800">Concierge</h4>
+                      <p class="text-gray-600 text-sm">+55 (61) 99225-1771</p>
+                    </div>
+                  </div>
+                  <button
+                    onclick="window.open('https://maps.google.com')"
+                    class="mt-4 text-dourado font-bold hover:text-azul-900 transition flex items-center gap-2"
+                  >
+                    ABRIR NO MAPA <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="md:w-1/2 bg-gray-300 relative group">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d145781.3421227397!2d-48.0197588752643!3d-15.721368148453386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae275%3A0x738470e469754a24!2sBras%C3%ADlia%20-%20Plano%20Piloto%2C%20Bras%C3%ADlia%20-%20DF!5e1!3m2!1spt-BR!2sbr!4v1765208764727!5m2!1spt-BR!2sbr"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                class="grayscale group-hover:grayscale-0 transition duration-700"
+              >
+              </iframe>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ================= VIEW: ROOMS ================= -->
+      <main id="view-rooms" class="hidden animate-fade-in">
+        <!-- Header Quartos -->
+        <div class="relative py-32 bg-azul-900 text-white overflow-hidden">
+          <div
+            class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-30"
+          ></div>
+          <div
+            class="container mx-auto px-4 relative z-10 text-center"
+            data-aos="fade-down"
+          >
+            <span
+              class="text-dourado tracking-[0.3em] uppercase text-sm font-bold mb-4 block"
+              >Coleção Exclusiva</span
+            >
+            <h1 class="text-5xl md:text-6xl font-serif italic mb-6">
+              Nossas Suítes
+            </h1>
+            <button
+              onclick="navigateTo('home')"
+              class="text-white/80 hover:text-white hover:underline flex items-center justify-center gap-2 mx-auto"
+            >
+              <i class="fas fa-arrow-left"></i> Voltar ao Início
+            </button>
+          </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-20 space-y-32">
+          <!-- Quarto Item Template (Solteiro) -->
+          <div
+            id="detail-solteiro"
+            class="flex flex-col lg:flex-row gap-12 items-center scroll-mt-32"
+          >
+            <div class="lg:w-1/2 relative group" data-aos="fade-right">
+              <div class="overflow-hidden rounded-lg shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1000&q=80"
+                  class="w-full h-[500px] object-cover transform group-hover:scale-105 transition duration-700"
+                />
+              </div>
+              <div
+                class="absolute -bottom-6 -right-6 bg-white p-6 shadow-xl hidden md:block max-w-xs"
+              >
+                <p class="text-gray-500 italic text-sm">
+                  "O refúgio perfeito para recarregar as energias com estilo."
+                </p>
+              </div>
+            </div>
+            <div class="lg:w-1/2" data-aos="fade-left">
+              <div class="flex items-center gap-4 mb-4">
+                <h2 class="text-4xl font-bold text-azul-900 font-serif">
+                  Solteiro Deluxe
+                </h2>
+                <span
+                  class="px-3 py-1 bg-gray-100 text-gray-600 text-xs tracking-widest uppercase rounded-full"
+                  >25m²</span
+                >
+              </div>
+              <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                Uma atmosfera serena projetada para o viajante moderno. Com
+                acabamentos em madeira natural e lençóis de algodão egípcio 400
+                fios, cada noite é uma experiência de puro conforto.
+              </p>
+              <div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-10 text-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-wifi text-dourado"></i> High-Speed Wifi
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-coffee text-dourado"></i> Nespresso Machine
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-wind text-dourado"></i> Ar Climatizado
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-tv text-dourado"></i> Smart TV 55"
+                </div>
+              </div>
+              <div
+                class="flex items-end justify-between border-t border-gray-200 pt-8"
+              >
+                <div>
+                  <span class="text-gray-400 text-sm block">A partir de</span>
+                  <span class="text-3xl font-bold text-azul-900"
+                    >R$ 450<span class="text-sm font-normal text-gray-500"
+                      >/noite</span
+                    ></span
+                  >
+                </div>
+                <button
+                  onclick="openBookingModal('Solteiro Deluxe')"
+                  class="bg-azul-900 text-white px-8 py-3 rounded-sm hover:bg-dourado transition duration-300"
+                >
+                  RESERVAR
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quarto Item Template (Casal) -->
+          <div
+            id="detail-casal"
+            class="flex flex-col lg:flex-row-reverse gap-12 items-center scroll-mt-32"
+          >
+            <div class="lg:w-1/2 relative group" data-aos="fade-left">
+              <div class="overflow-hidden rounded-lg shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80"
+                  class="w-full h-[500px] object-cover transform group-hover:scale-105 transition duration-700"
+                />
+              </div>
+            </div>
+            <div class="lg:w-1/2" data-aos="fade-right">
+              <div class="flex items-center gap-4 mb-4">
+                <h2 class="text-4xl font-bold text-azul-900 font-serif">
+                  Master Suite
+                </h2>
+                <span class="bg-dourado text-white text-xs px-2 py-1 rounded"
+                  >POPULAR</span
+                >
+              </div>
+              <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                O epítome do romance. Desperte com vistas panorâmicas do oceano
+                e desfrute de sua hidromassagem privativa na varanda. Champagne
+                de boas-vindas incluso.
+              </p>
+              <div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-10 text-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-water text-dourado"></i> Vista Mar Frontal
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-hot-tub text-dourado"></i> Jacuzzi Privativa
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-tshirt text-dourado"></i> Roupões Premium
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-bed text-dourado"></i> King Size Bed
+                </div>
+              </div>
+              <div
+                class="flex items-end justify-between border-t border-gray-200 pt-8"
+              >
+                <div>
+                  <span class="text-gray-400 text-sm block">A partir de</span>
+                  <span class="text-3xl font-bold text-azul-900"
+                    >R$ 890<span class="text-sm font-normal text-gray-500"
+                      >/noite</span
+                    ></span
+                  >
+                </div>
+                <button
+                  onclick="openBookingModal('Master Suite')"
+                  class="bg-azul-900 text-white px-8 py-3 rounded-sm hover:bg-dourado transition duration-300"
+                >
+                  RESERVAR
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quarto Item Template (Familia) -->
+          <div
+            id="detail-familia"
+            class="flex flex-col lg:flex-row gap-12 items-center scroll-mt-32"
+          >
+            <div class="lg:w-1/2 relative group" data-aos="fade-right">
+              <div class="overflow-hidden rounded-lg shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1000&q=80"
+                  class="w-full h-[500px] object-cover transform group-hover:scale-105 transition duration-700"
+                />
+              </div>
+            </div>
+            <div class="lg:w-1/2" data-aos="fade-left">
+              <div class="flex items-center gap-4 mb-4">
+                <h2 class="text-4xl font-bold text-azul-900 font-serif">
+                  Royal Family
+                </h2>
+              </div>
+              <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                Espaço e sofisticação para toda a família. Dois ambientes
+                integrados, área de estar espaçosa e uma minicozinha gourmet
+                para sua conveniência.
+              </p>
+              <div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-10 text-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-users text-dourado"></i> Até 4 Pessoas
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-door-open text-dourado"></i> 2 Ambientes
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-utensils text-dourado"></i> Kitchenette
+                </div>
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-gamepad text-dourado"></i> Área Kids
+                </div>
+              </div>
+              <div
+                class="flex items-end justify-between border-t border-gray-200 pt-8"
+              >
+                <div>
+                  <span class="text-gray-400 text-sm block">A partir de</span>
+                  <span class="text-3xl font-bold text-azul-900"
+                    >R$ 1.200<span class="text-sm font-normal text-gray-500"
+                      >/noite</span
+                    ></span
+                  >
+                </div>
+                <button
+                  onclick="openBookingModal('Royal Family')"
+                  class="bg-azul-900 text-white px-8 py-3 rounded-sm hover:bg-dourado transition duration-300"
+                >
+                  RESERVAR
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ================= VIEW: PRIVACY ================= -->
+      <main id="view-privacy" class="hidden animate-fade-in">
+        <!-- Header Política -->
+        <div class="relative py-20 bg-azul-900 text-white">
+          <div class="absolute inset-0 bg-black/20"></div>
+          <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-serif italic mb-4">
+              Política de Privacidade
+            </h1>
+            <button
+              onclick="navigateTo('home')"
+              class="text-white/80 hover:text-white hover:underline flex items-center justify-center gap-2 mx-auto mt-4 text-sm"
+            >
+              <i class="fas fa-arrow-left"></i> Voltar ao Início
+            </button>
+          </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-16 max-w-4xl">
+          <div
+            class="bg-white p-8 md:p-12 rounded-lg shadow-xl prose prose-lg text-gray-600"
+          >
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              1. Introdução
+            </h2>
+            <p class="mb-6">
+              A Pousada Secreta valoriza a sua privacidade e está comprometida
+              em proteger os seus dados pessoais. Esta política explica como
+              coletamos, usamos e protegemos as informações que você compartilha
+              conosco ao utilizar nosso site e serviços.
+            </p>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              2. Coleta de Dados
+            </h2>
+            <p class="mb-4">
+              Podemos coletar as seguintes informações quando você faz uma
+              reserva ou entra em contato conosco:
+            </p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+              <li>
+                Nome completo e informações de contato (e-mail, telefone).
+              </li>
+              <li>Dados demográficos (como endereço e código postal).</li>
+              <li>Preferências de estadia e solicitações especiais.</li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              3. Uso das Informações
+            </h2>
+            <p class="mb-6">
+              Utilizamos seus dados para processar reservas, melhorar nossos
+              serviços, enviar ofertas promocionais (caso tenha optado por
+              recebê-las) e garantir uma experiência personalizada durante sua
+              estadia.
+            </p>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              4. Segurança
+            </h2>
+            <p class="mb-6">
+              Implementamos medidas de segurança robustas para proteger seus
+              dados contra acesso não autorizado, alteração ou divulgação.
+            </p>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              5. Contato
+            </h2>
+            <p>
+              Se tiver dúvidas sobre nossa política de privacidade, entre em
+              contato através do e-mail: <strong>reservas@secreta.com</strong>.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- ================= VIEW: TERMOS DE USO (NOVO) ================= -->
+      <main id="view-terms" class="hidden animate-fade-in">
+        <!-- Header Termos -->
+        <div class="relative py-20 bg-azul-900 text-white">
+          <div class="absolute inset-0 bg-black/20"></div>
+          <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-serif italic mb-4">
+              Termos de Uso
+            </h1>
+            <button
+              onclick="navigateTo('home')"
+              class="text-white/80 hover:text-white hover:underline flex items-center justify-center gap-2 mx-auto mt-4 text-sm"
+            >
+              <i class="fas fa-arrow-left"></i> Voltar ao Início
+            </button>
+          </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-16 max-w-4xl">
+          <div
+            class="bg-white p-8 md:p-12 rounded-lg shadow-xl prose prose-lg text-gray-600"
+          >
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              1. Aceitação dos Termos
+            </h2>
+            <p class="mb-6">
+              Ao acessar o site e efetuar reservas na Pousada Secreta, você
+              concorda com os termos e condições descritos abaixo. Recomendamos
+              a leitura atenta antes de confirmar sua estadia.
+            </p>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              2. Reservas e Pagamentos
+            </h2>
+            <p class="mb-4">
+              Para confirmar a reserva, é necessário o pagamento de 50% do valor
+              total da estadia. O restante deverá ser pago no momento do
+              check-in.
+            </p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+              <li>
+                Aceitamos cartões de crédito, débito e transferências bancárias.
+              </li>
+              <li>
+                Tarifas sujeitas a alteração sem aviso prévio (exceto reservas
+                confirmadas).
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              3. Cancelamento e No-Show
+            </h2>
+            <p class="mb-6">
+              Cancelamentos feitos com até 15 dias de antecedência terão
+              reembolso integral. Cancelamentos com menos de 15 dias implicam na
+              retenção do sinal. O não comparecimento (No-Show) será cobrado
+              integralmente.
+            </p>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              4. Regras de Convivência
+            </h2>
+            <p class="mb-4">
+              Prezamos pelo sossego e bem-estar de todos os hóspedes.
+            </p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+              <li>
+                <strong>Check-in:</strong> a partir das 14h |
+                <strong>Check-out:</strong> até às 12h.
+              </li>
+              <li>Lei do Silêncio: respeitar o silêncio após às 22h.</li>
+              <li>Não é permitido fumar no interior das suítes.</li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-azul-900 mb-6 font-serif">
+              5. Responsabilidades
+            </h2>
+            <p>
+              A pousada não se responsabiliza por objetos de valor deixados fora
+              do cofre da suíte. Danos causados às instalações serão cobrados no
+              check-out.
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-azul-900 text-white pt-20 pb-10 border-t border-white/10">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div>
+            <h3 class="text-2xl font-serif italic mb-6">Pousada Secreta</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              Uma coleção de momentos inesquecíveis em meio à natureza
+              exuberante de Angra dos Reis. O luxo de ser simples, a
+              sofisticação de ser exclusivo.
+            </p>
+            <div class="flex space-x-4">
+              <!-- Link do Instagram configurado -->
+              <a
+                href="https://www.instagram.com/pousadasecreta/"
+                target="_blank"
+                class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-dourado hover:border-dourado transition"
+                aria-label="Instagram"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <!-- Link do Facebook configurado -->
+              <a
+                href="https://www.facebook.com/pousadasecreta/"
+                target="_blank"
+                class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-dourado hover:border-dourado transition"
+                aria-label="Facebook"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4
+              class="text-dourado font-bold text-sm uppercase tracking-widest mb-6"
+            >
+              Explorar
+            </h4>
+            <ul class="space-y-3 text-gray-400 text-sm">
+              <li>
+                <button
+                  onclick="navigateTo('home')"
+                  class="hover:text-white transition"
+                >
+                  Início
+                </button>
+              </li>
+              <li>
+                <button
+                  onclick="navigateTo('rooms')"
+                  class="hover:text-white transition"
+                >
+                  Acomodações
+                </button>
+              </li>
+              <li>
+                <button
+                  onclick="navigateTo('home', 'sobre')"
+                  class="hover:text-white transition"
+                >
+                  Gastronomia
+                </button>
+              </li>
+              <li>
+                <button
+                  onclick="navigateTo('home', 'rota')"
+                  class="hover:text-white transition"
+                >
+                  Localização
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              class="text-dourado font-bold text-sm uppercase tracking-widest mb-6"
+            >
+              Contato
+            </h4>
+            <ul class="space-y-3 text-gray-400 text-sm">
+              <li>
+                <i class="fas fa-phone mr-2 text-dourado"></i> +55 (61)
+                99225-1771
+              </li>
+              <li>
+                <i class="fas fa-envelope mr-2 text-dourado"></i>
+                reservas@secreta.com
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt mr-2 text-dourado"></i> Brasília
+                - Plano Piloto, DF
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              class="text-dourado font-bold text-sm uppercase tracking-widest mb-6"
+            >
+              Newsletter
+            </h4>
+            <p class="text-gray-400 text-xs mb-4">
+              Receba ofertas exclusivas e novidades.
+            </p>
+            <!-- Adicionei form com onsubmit e ID no input -->
+            <form
+              onsubmit="event.preventDefault(); subscribeNewsletter();"
+              class="flex border-b border-white/30 pb-2"
+            >
+              <input
+                id="newsletter-email"
+                type="email"
+                placeholder="Seu e-mail"
+                required
+                class="bg-transparent border-none outline-none text-white text-sm w-full placeholder-gray-500"
+              />
+              <button
+                type="submit"
+                class="text-dourado uppercase text-xs font-bold hover:text-white transition"
+              >
+                Enviar
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500"
+        >
+          <p>&copy; 2024 Pousada Secreta. Luxury Hospitality.</p>
+          <div class="flex space-x-6 mt-4 md:mt-0">
+            <button
+              onclick="navigateTo('privacy')"
+              class="hover:text-white transition"
+            >
+              Política de Privacidade
+            </button>
+            <!-- Link Termos atualizado -->
+            <button
+              onclick="navigateTo('terms')"
+              class="hover:text-white transition"
+            >
+              Termos de Uso
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL DE RESERVA -->
+    <div id="booking-modal" class="fixed inset-0 z-[60] hidden">
+      <!-- Backdrop -->
+      <div
+        class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity opacity-0"
+        id="modal-backdrop"
+      ></div>
+
+      <!-- Modal Content -->
+      <div
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-lg rounded-lg shadow-2xl p-8 transition-all scale-95 opacity-0"
+        id="modal-content"
+      >
+        <button
+          onclick="closeBookingModal()"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-800"
+        >
+          <i class="fas fa-times text-xl"></i>
+        </button>
+
+        <div class="text-center mb-6">
+          <span class="text-dourado uppercase tracking-widest text-xs font-bold"
+            >Planeje sua estadia</span
+          >
+          <h3 class="text-2xl font-serif font-bold text-azul-900 mt-2">
+            Reservar Momento
+          </h3>
+        </div>
+
+        <form
+          class="space-y-4"
+          onsubmit="event.preventDefault(); alert('Solicitação enviada com sucesso! Entraremos em contato.'); closeBookingModal();"
+        >
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1"
+              >Acomodação</label
+            >
+            <select
+              id="modal-room-select"
+              class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-dourado bg-transparent"
+            >
+              <option value="Solteiro Deluxe">Solteiro Deluxe</option>
+              <option value="Master Suite">Master Suite (Casal)</option>
+              <option value="Royal Family">Royal Family</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-xs font-bold text-gray-500 uppercase mb-1"
+                >Check-in</label
+              >
+              <input
+                type="text"
+                id="checkin-date"
+                placeholder="Selecione data"
+                class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-dourado bg-transparent flatpickr"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-xs font-bold text-gray-500 uppercase mb-1"
+                >Check-out</label
+              >
+              <input
+                type="text"
+                id="checkout-date"
+                placeholder="Selecione data"
+                class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-dourado bg-transparent flatpickr"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1"
+              >Seu Nome</label
+            >
+            <input
+              type="text"
+              placeholder="Nome completo"
+              class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-dourado bg-transparent"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-azul-900 text-white py-4 mt-4 font-bold tracking-widest hover:bg-dourado transition duration-300"
+          >
+            CONFIRMAR DISPONIBILIDADE
+          </button>
+          <p class="text-center text-xs text-gray-400 mt-2">
+            Melhor tarifa garantida ao reservar direto.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- BOTÃO FLUTUANTE WHATSAPP -->
+    <!-- Adicionei o parâmetro ?text= com a mensagem codificada -->
+    <a
+      href="https://wa.me/5561992251771?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Pousada%20Secreta."
+      target="_blank"
+      class="fixed bottom-6 right-6 z-40 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 hover:scale-110 transition duration-300 animate-bounce-slow"
+    >
+      <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // Inicializar Animações (AOS)
+      AOS.init({
+        once: true,
+        offset: 100,
+        duration: 800,
+        easing: "ease-out-cubic",
+      });
+
+      // Inicializar Calendário (Flatpickr)
+      flatpickr(".flatpickr", {
+        minDate: "today",
+        dateFormat: "d/m/Y",
+      });
+
+      // SPA Navigation Logic
+      function navigateTo(viewName, sectionId = null) {
+        const homeView = document.getElementById("view-home");
+        const roomsView = document.getElementById("view-rooms");
+        const privacyView = document.getElementById("view-privacy");
+        const termsView = document.getElementById("view-terms");
+
+        // Oculta todas as views
+        homeView.classList.add("hidden");
+        roomsView.classList.add("hidden");
+        if (privacyView) privacyView.classList.add("hidden");
+        if (termsView) termsView.classList.add("hidden");
+
+        // Mostra a view solicitada
+        if (viewName === "home") {
+          homeView.classList.remove("hidden");
+          refreshAOS();
+        } else if (viewName === "rooms") {
+          roomsView.classList.remove("hidden");
+          refreshAOS();
+        } else if (viewName === "privacy") {
+          privacyView.classList.remove("hidden");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        } else if (viewName === "terms") {
+          termsView.classList.remove("hidden");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+
+        // Scroll para topo ou seção específica
+        if (sectionId) {
+          setTimeout(() => {
+            const element = document.getElementById(
+              sectionId === "rota" || sectionId === "sobre"
+                ? sectionId
+                : "detail-" + sectionId
+            );
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
+      function refreshAOS() {
+        setTimeout(() => {
+          AOS.refresh();
+        }, 100);
+      }
+
+      // Navbar Scroll Effect
+      const navbar = document.getElementById("navbar");
+      const navTexts = document.querySelectorAll(".nav-text-color");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.remove("nav-transparent");
+          navbar.classList.add("nav-scrolled");
+          // Change text to dark
+          navTexts.forEach((el) => {
+            if (
+              !el.classList.contains("text-white") &&
+              !el.parentElement.classList.contains("bg-azul-900")
+            ) {
+              el.classList.remove("text-white");
+              el.classList.add("text-azul-900");
+            }
+            // Logo adjustments (simplified for this demo)
+            if (el.classList.contains("text-white")) {
+              el.classList.remove("text-white");
+              el.classList.add("text-azul-900");
+            }
+          });
+        } else {
+          navbar.classList.add("nav-transparent");
+          navbar.classList.remove("nav-scrolled");
+          // Change text back to white
+          navTexts.forEach((el) => {
+            if (el.classList.contains("text-azul-900")) {
+              el.classList.remove("text-azul-900");
+              el.classList.add("text-white");
+            }
+          });
+        }
+      });
+
+      // Mobile Menu
+      function toggleMobileMenu() {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+      }
+
+      // Modal Logic
+      const modal = document.getElementById("booking-modal");
+      const backdrop = document.getElementById("modal-backdrop");
+      const content = document.getElementById("modal-content");
+      const roomSelect = document.getElementById("modal-room-select");
+
+      function openBookingModal(preselectedRoom = null) {
+        modal.classList.remove("hidden");
+        // Small timeout for transition
+        setTimeout(() => {
+          backdrop.classList.remove("opacity-0");
+          content.classList.remove("scale-95", "opacity-0");
+        }, 10);
+
+        if (preselectedRoom) {
+          roomSelect.value = preselectedRoom;
+        }
+      }
+
+      function closeBookingModal() {
+        backdrop.classList.add("opacity-0");
+        content.classList.add("scale-95", "opacity-0");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      }
+
+      // Close modal on click outside
+      modal.addEventListener("click", (e) => {
+        if (e.target === backdrop) closeBookingModal();
+      });
+
+      // Lógica da Newsletter (NOVO)
+      function subscribeNewsletter() {
+        const emailInput = document.getElementById("newsletter-email");
+        if (emailInput.value) {
+          alert(
+            `Obrigado! O e-mail ${emailInput.value} foi cadastrado na nossa lista exclusiva. Em breve enviaremos novidades.`
+          );
+          emailInput.value = "";
+        }
+      }
+    </script>
+  </body>
+</html>
