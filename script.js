@@ -1,8 +1,61 @@
 // Inicializar Animações (AOS)
 AOS.init({ once: true, offset: 50, duration: 800, easing: "ease-out-cubic" });
 
+// Configuração de idioma Português (Brasil) para o Flatpickr
+const ptBR = {
+  weekdays: {
+    shorthand: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+    longhand: [
+      "Domingo",
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
+    ],
+  },
+  months: {
+    shorthand: [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez",
+    ],
+    longhand: [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
+    ],
+  },
+  rangeSeparator: " até ",
+  time_24hr: true,
+};
+
 // Inicializar Calendário (Flatpickr)
-flatpickr(".flatpickr", { minDate: "today", dateFormat: "d/m/Y" });
+flatpickr(".flatpickr", {
+  minDate: "today",
+  dateFormat: "d/m/Y",
+  locale: ptBR, // Aplica a tradução
+  disableMobile: "true", // Força o tema customizado também no mobile para manter pt-BR visualmente
+});
 
 // Lógica de Navegação SPA (Single Page Application)
 function navigateTo(viewName, sectionId = null) {
